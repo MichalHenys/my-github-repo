@@ -265,7 +265,3 @@ if (user, password) in registred_users.items():
 
 else:
   print("unregistered user, terminating the program..")
-
-
-
-
