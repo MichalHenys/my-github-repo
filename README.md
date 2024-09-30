@@ -60,43 +60,29 @@ if (user, password) in registred_users.items():
   # program se zeptá na číslo od 1 - 3, pokud není číslo nebo je vyšší, ukončí se
   while choice := input("Enter a number btw. 1 and 3 to select: "):
     print("-" * 40)
-    if choice == "1":
+    if choice in ["1", "2", "3"]:
       # vypíše počet slov
       # rozdělení textu na seznam
-      words = TEXT[0].split()
-      words_list = []
-      for w in words:
-        words_list.append(w)     
+      index = int(choice) - 1
+      selected_text = TEXT[index]
+
+      words = selected_text.split()    
       print(f"There are {len(words)} words in the selected text.")
 
-      big_first = []
-      for i in words:
-        if i[0].isupper(): # určení, zda slovo začíná velkým písmenem na pozici [0]
-          big_first.append(i)
+      big_first = [w for w in words if w[0].isupper()]
       print(f"There are {len(big_first)} titlecase words.")
 
       # určení, zda je celé slovo psané jen velkými písmeny
-      words_upper = []
-      for b in words:
-        if b.isupper() and b.isalpha():
-          words_upper.append(b)
+      words_upper = [w for w in words if w.isupper() and w.isalpha()]
       print(f"There are {len(words_upper)} uppercase words.")
 
       # určení, zda je celé slovo psané jen malými písmeny včetně lov s čísly
-      words_lower = []
-      for b in words:
-        if b.islower():
-          words_lower.append(b)
+      words_lower = [w for w in words if w.islower()]
       print(f"There are {len(words_lower)} lowercase words.")
 
       # kolik je numerických částí ve stringu a jejich součet
-      words_numeric = []
-      sum_numeric = 0      
-      for n in words:
-        if n.isnumeric():
-          #přičtení hodoty každého stringu převedeného na int do words_numeric
-          sum_numeric += int(n)
-          words_numeric.append(n)
+      words_numeric = [int(n) for n in words if n.isnumeric()]
+      sum_numeric = sum(words_numeric)             
       print(f"There are {len(words_numeric)} numeric strings.")
       print(f"The sum of all the numbers {sum_numeric}")
 
@@ -108,156 +94,24 @@ if (user, password) in registred_users.items():
 
       # Seřazení délek slov podle jejich délky (od nejmenší po největší)
       sorted_lengths = sorted(length_counts.items())
-
+      
       # Maximální šířka grafu
-      max_bar_width = 18
+      max_bar_width= max(length_counts.values())
+      
 
       # Výpis hlavičky
       print("-" * 40)
-      print(f'{"LEN":>2}|{"OCCURRENCES".center(max_bar_width)}|{"NR.":>2}')
+      print(f'{"LEN":>2}|{"OCCURRENCES".center(max_bar_width + 2)}|{"NR.":>2}')
       print("-" * 40)
 
       for length, count in sorted_lengths:
           # Škálování délky hvězdičkového grafu
           scaled_count = count
           bar = '*' * scaled_count
-          print(f'{length:3}|{bar:<{max_bar_width}}|{count}')
-      
-
-    # Výběr 2. možnosti
-    elif choice == "2":
-      # vypíše počet slov
-      # rozdělení textu na seznam
-      words = TEXT[1].split()
-      words_list = []
-      for w in words:
-        words_list.append(w)     
-      print(f"There are {len(words)} words in the selected text.")
-
-      big_first = []
-      for i in words:
-        if i[0].isupper(): # určení, zda slovo začíná velkým písmenem na pozici [0]
-          big_first.append(i)
-      print(f"There are {len(big_first)} titlecase words.")
-
-      # určení, zda je celé slovo psané jen velkými písmeny
-      words_upper = []
-      for b in words:
-        if b.isupper() and b.isalpha():
-          words_upper.append(b)
-      print(f"There are {len(words_upper)} uppercase words.")
-
-      # určení, zda je celé slovo psané jen malými písmeny včetně lov s čísly
-      words_lower = []
-      for b in words:
-        if b.islower():
-          words_lower.append(b)
-      print(f"There are {len(words_lower)} lowercase words.")
-
-      # kolik je numerických částí ve stringu a jejich součet
-      words_numeric = []
-      sum_numeric = 0      
-      for n in words:
-        if n.isnumeric():
-          #přičtení hodoty každého stringu převedeného na int do words_numeric
-          sum_numeric += int(n)
-          words_numeric.append(n)
-      print(f"There are {len(words_numeric)} numeric strings.")
-      print(f"The sum of all the numbers {sum_numeric}")
-
-      # Tvorba tabulky a přidání hodnot, naiportování Counteru
-      word_lengths = [len(word.strip(",.")) for word in words]
-  
-      # Spočítání četnosti každé délky slova
-      length_counts = Counter(word_lengths)
-  
-      # Seřazení délek slov podle jejich délky (od nejmenší po největší)
-      sorted_lengths = sorted(length_counts.items())
-      
-  
-      # Maximální šířka grafu
-      max_bar_width = 18
-  
-      # Výpis hlavičky
-      print("-" * 40)
-      print(f'{"LEN":>2}|{"OCCURRENCES".center(max_bar_width)}|{"NR.":>2}')
-      print("-" * 40)
-  
-
-      for length, count in sorted_lengths:
-          # Škálování délky hvězdičkového grafu
-          scaled_count = count
-          bar = '*' * scaled_count
-          print(f'{length:3}|{bar:<{max_bar_width}}|{count}')
-      
-
-    # Výběr 3. možnosti
-    elif choice == "3":
-      # vypíše počet slov
-      # rozdělení textu na seznam
-      words = TEXT[2].split()
-      words_list = []
-      for w in words:
-        words_list.append(w)     
-      print(f"There are {len(words)} words in the selected text.")
-
-      big_first = []
-      for i in words:
-        if i[0].isupper(): # určení, zda slovo začíná velkým písmenem na pozici [0]
-          big_first.append(i)
-      print(f"There are {len(big_first)} titlecase words.")
-
-      # určení, zda je celé slovo psané jen velkými písmeny
-      words_upper = []
-      for b in words:
-        if b.isupper() and b.isalpha():
-          words_upper.append(b)
-      print(f"There are {len(words_upper)} uppercase words.")
-
-      # určení, zda je celé slovo psané jen malými písmeny včetně lov s čísly
-      words_lower = []
-      for b in words:
-        if b.islower():
-          words_lower.append(b)
-      print(f"There are {len(words_lower)} lowercase words.")
-
-      # kolik je numerických částí ve stringu a jejich součet
-      words_numeric = []
-      sum_numeric = 0      
-      for n in words:
-        if n.isnumeric():
-          #přičtení hodoty každého stringu převedeného na int do words_numeric
-          sum_numeric += int(n)
-          words_numeric.append(n)
-      print(f"There are {len(words_numeric)} numeric strings.")
-      print(f"The sum of all the numbers {sum_numeric}")
-
-      # Tvorba tabulky a přidání hodnot, naiportování Counteru
-      word_lengths = [len(word.strip(",.")) for word in words]
-
-      # Spočítání četnosti každé délky slova
-      length_counts = Counter(word_lengths)
-
-      # Seřazení délek slov podle jejich délky (od nejmenší po největší)
-      sorted_lengths = sorted(length_counts.items())
-     
-      # Maximální šířka grafu
-      max_bar_width = 18
-
-      # Výpis hlavičky
-      print("-" * 40)
-      print(f'{"LEN":>2}|{"OCCURRENCES".center(max_bar_width)}|{"NR.":>2}')
-      print("-" * 40)
+          print(f'{length:3}|{bar:<{max_bar_width + 2}}|{count}')
 
 
-      for length, count in sorted_lengths:
-          # Škálování délky hvězdičkového grafu
-          scaled_count = count
-          bar = '*' * scaled_count
-          print(f'{length:3}|{bar:<{max_bar_width}}|{count}')
-      
-
-    elif not int(choice.isdigit()):
+    elif not choice.isdigit():
       print("This is not a number.")
     else:
       print("You entered an incorrect selection number.")
