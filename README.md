@@ -69,19 +69,19 @@ if (user, password) in registred_users.items():
       words = selected_text.split()    
       print(f"There are {len(words)} words in the selected text.")
 
-      big_first = [w for w in words if w[0].isupper()]
+      big_first = [big_w for big_w in words if big_w[0].isupper()]
       print(f"There are {len(big_first)} titlecase words.")
 
       # určení, zda je celé slovo psané jen velkými písmeny
-      words_upper = [w for w in words if w.isupper() and w.isalpha()]
+      words_upper = [upper_w for upper_w in words if upper_w.isupper() and upper_w.isalpha()]
       print(f"There are {len(words_upper)} uppercase words.")
 
       # určení, zda je celé slovo psané jen malými písmeny včetně lov s čísly
-      words_lower = [w for w in words if w.islower()]
+      words_lower = [lower_w for lower_w in words if lower_w.islower()]
       print(f"There are {len(words_lower)} lowercase words.")
 
       # kolik je numerických částí ve stringu a jejich součet
-      words_numeric = [int(n) for n in words if n.isnumeric()]
+      words_numeric = [int(num_w) for num_w in words if num_w.isnumeric()]
       sum_numeric = sum(words_numeric)             
       print(f"There are {len(words_numeric)} numeric strings.")
       print(f"The sum of all the numbers {sum_numeric}")
@@ -104,11 +104,11 @@ if (user, password) in registred_users.items():
       print(f'{"LEN":>2}|{"OCCURRENCES".center(max_bar_width + 2)}|{"NR.":>2}')
       print("-" * 40)
 
-      for length, count in sorted_lengths:
-          # Škálování délky hvězdičkového grafu
-          scaled_count = count
+      # Škálování délky hvězdičkového grafu
+      for row_length, col_count in sorted_lengths:
+          scaled_count = col_count
           bar = '*' * scaled_count
-          print(f'{length:3}|{bar:<{max_bar_width + 2}}|{count}')
+          print(f'{row_length:3}|{bar:<{max_bar_width + 2}}|{col_count}')
 
 
     elif not choice.isdigit():
@@ -118,4 +118,4 @@ if (user, password) in registred_users.items():
     break
 
 else:
-  print("unregistered user, terminating the program..")
+  print("Unregistered user, terminating the program..")
